@@ -1,0 +1,68 @@
+{
+  "aboutText": "Saya adalah seorang mahasiswa aktif di Universitas Negeri Surabaya.\nDengan pengalaman dalam berbagai bidang desain, mulai dari desain grafis hingga desain UI/UX,\nsaya selalu berusaha menghadirkan kreativitas yang tak hanya\nmenarik secara visual, tetapi juga fungsional.\n\nSebagai seorang desainer,\nsaya selalu berusaha\nterus berkembang dan\nmengeksplorasi tren desain\nterkini untuk memberikan hasil yang\nrelevan dan up-to-date.",
+  "educations": [
+    {
+      "id": "1",
+      "institution": "Universitas Negeri Surabaya",
+      "degree": "S1 Pendidikan Teknologi Informasi",
+      "period": "2022 - Sekarang",
+      "description": "Saya saat ini menempuh studi di Universitas Negeri Surabaya, jurusan Teknik Informatika, program studi S1 Pendidikan Teknologi Informasi angkatan 2022. Melalui pendidikan ini, saya mengembangkan pemahaman mendalam tentang teknologi informasi, pemrograman, dan pengaplikasiannya dalam bidang pendidikan. Studi ini juga membantu saya mengasah keterampilan teknis sekaligus membekali saya dengan pendekatan pedagogis untuk berbagi ilmu teknologi secara efektif.",
+      "logo": "/logo unesa black.svg"
+    }
+  ],
+  "organizations": [
+    {
+      "id": "1",
+      "name": "Himti Unesa",
+      "position": "Staff Departemen Komunikasi dan Informasi",
+      "period": "2023 - 2024",
+      "description": "Di Himpunan Mahasiswa Teknik Informatika (HIMTI) Universitas Negeri Surabaya saya menjabat sebagai staff Departemen Komunikasi dan Informasi (KOMINFO) dengan masa 6 bulan yaitu maret sampai desember. Dalam peran ini, saya bertanggung jawab untuk mengelola feed Instagram HIMTI Unesa, termasuk mengupdate informasi terbaru dan membuat konten visual yang menarik. Melalui pengalaman ini, saya mengasah kemampuan komunikasi visual dan manajemen media sosial.",
+      "logo": "/logo himti.svg"
+    },
+    {
+      "id": "2",
+      "name": "GDSC Unesa",
+      "position": "Content Creator",
+      "period": "2023 - 2024",
+      "description": "Saya juga aktif di Google Developer Student Club Universitas Negeri Surabaya (GDSC Unesa) sebagai anggota divisi Content Creator. Dalam peran ini, saya bertanggung jawab untuk membuat feed postingan yang sesuai dengan timeline yang sudah ditentukan. Pengalaman ini memperkuat kemampuan saya dalam perencanaan konten, desain grafis, dan manajemen waktu untuk memastikan setiap informasi tersampaikan dengan efektif.",
+      "logo": "/logo gdsc.svg"
+    },
+    {
+      "id": "3",
+      "name": "HMP PTI Unesa",
+      "position": "Ketua Departemen Komunikasi dan Informasi",
+      "period": "2023 - 2024",
+      "description": "Di Himpunan Mahasiswa Prodi Pendidikan Teknologi Informasi HIMTI Unesa (HMP PTI) Unesa saya juga menjabat sebagai Ketua Departemen Komunikasi dan Informasi (KOMINFO). Dalam peran ini, saya bertanggung jawab untuk mengatur dan mengelola timeline postingan di akun Instagram HMP PTI, memastikan setiap informasi dapat tersampaikan dengan terorganisir dan tepat waktu.",
+      "logo": "/logo hmppti.svg"
+    }
+  ],
+  "workExperiences": [
+    {
+      "id": "1755236537756",
+      "company": "PT. DUDU DIGITAL",
+      "position": "Desainer Logo",
+      "period": "Februari - Maret 2025",
+      "description": "Saya bekerja secara Work From Home (WFH) di PT. DUDU DIGITAL dengan fokus pada pembuatan berbagai materi desain visual, seperti logo, banner, poster, dan kebutuhan grafis lainnya. Dalam pekerjaan ini, saya bertanggung jawab mulai dari membuat konsep desain, mengolah ide menjadi visual yang menarik, hingga menyelesaikan hasil akhir sesuai permintaan klien.\n\nMeskipun bekerja dari rumah, saya tetap menjaga komunikasi aktif dengan tim dan klien melalui platform daring, sehingga proses kerja tetap efisien dan hasil desain tetap berkualitas tinggi.",
+      "logo": "/uploads/1755241622775-Pensil_Ajaib.png"
+    }
+  ],
+  "customSections": [
+    {
+      "id": "1755268240817",
+      "sectionTitle": "Pengalaman Magang",
+      "title": "Diskominfo Kota Batu",
+      "subtitle": "Web Developer",
+      "content": "Magang sebagai Web Developer di Dinas Komunikasi dan Informatika (Diskominfo) Kota Batu memberikan kesempatan untuk terlibat langsung dalam pengembangan, pemeliharaan, dan optimalisasi berbagai situs web resmi pemerintah daerah. Peserta magang akan membantu dalam pembuatan halaman web, pembaruan konten, perbaikan bug, serta memastikan tampilan website responsif dan aman. Kegiatan ini dilakukan dengan berkolaborasi bersama tim desain, konten, dan IT untuk mendukung penyediaan layanan informasi publik yang efektif.\n\nMelalui program magang ini, peserta akan memperoleh pengalaman praktis dalam mengaplikasikan HTML, CSS, JavaScript, serta teknologi pendukung lainnya, termasuk framework atau CMS yang digunakan instansi. Selain meningkatkan keterampilan teknis, peserta juga akan memahami alur kerja pengelolaan website di lingkungan pemerintahan, memperluas jejaring profesional, serta mendapatkan sertifikat sebagai bukti pengalaman kerja.",
+      "image": "/uploads/1755268181490-cropped-logo-diskominfo.png",
+      "imageCaption": "Juni - Juli 2025"
+    }
+  ],
+  "sectionOrder": [
+    "about",
+    "educations",
+    "organizations",
+    "workExperience",
+    "customSections",
+    "custom-Pengalaman Magang"
+  ]
+}

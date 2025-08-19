@@ -1,0 +1,100 @@
+"use client";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { ProjectCard, Buttonno } from "@/components";
+import { presentationProjectItem } from "@/constants";
+
+export default function Projects() {
+  // State untuk kategori yang dipilih
+  const [selectedCategory, setSelectedCategory] = useState("Semua");
+
+  // Fungsi untuk memfilter item berdasarkan kategori
+  const filteredProjects = presentationProjectItem.filter((item) =>
+    selectedCategory === "Semua" ? true : item.category === selectedCategory
+  );
+
+  // Variants untuk animasi masuk
+  const cardVariants = {
+    hidden: { opacity: 0, y: 70 },
+    visible: (index: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: index * 0.2, duration: 0.3 },
+    }),
+  };
+
+  return (
+    <div className="w-full">
+      <div className="w-full flex flex-col items-center justify-center bg-about">
+        <div
+          data-scroll
+          data-scroll-speed="-.2"
+          className="bg-[#BFDA62] w-[75%] py-[20px] rounded-t-[10px]"
+        />
+        <div
+          className="bg-[#B8D25E] relative z-20 w-[90%] py-[20px] rounded-t-[10px]"
+          data-scroll
+          data-scroll-speed="-.1"
+        />
+      </div>
+      <section className="w-full relative z-30 padding-y rounded-t-[20px] bg-background">
+        <div className="mb-50px">
+          <h2 className="sub-heading font-normal padding-x font-NeueMontreal text-secondry mb-20">
+            {/* Tambahkan margin bawah (mb-6) untuk memberikan jarak */}
+            Ini adalah list dari 
+            <br className="sm:hidden xm:hidden" />
+            beberapa proyekku :
+          </h2>
+        </div>
+
+        {/* Gabungkan Button Kategori dan Card agar lebih dekat */}
+        <div className="flex flex-col gap-5">
+          {/* Button kategori */}
+          <div className="flex flex-wrap justify-start gap-3 ml-10">
+            {["Semua", "Logo", "Poster", "Feed"].map((category) => (
+              <button
+                key={category}
+                className={`px-2 py-1.5 rounded-full text-black font-medium border border-black transition-colors duration-300 ${
+                  selectedCategory === category
+                    ? "bg-black text-white" // Jika dipilih, background hitam dan teks putih
+                    : "hover:bg-black hover:text-white" // Hover memiliki background hitam dan teks putih
+                }`}
+                onClick={() => setSelectedCategory(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
+          {/* Daftar proyek */}
+          <div className="w-full flex justify-between gap-y-[30px] gap-x-[20px] padding-x flex-wrap">
+            {filteredProjects.map((item, index: number) => (
+              <motion.div
+                className="w-[49%] sm:w-full xm:w-full"
+                key={item.id}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible" // Aktifkan animasi saat elemen terlihat
+                viewport={{ once: true, amount: 0.2 }} // Hanya animasi sekali
+                custom={index} // Mengatur delay berdasarkan urutan card
+              >
+                <div className="flex gap-x-[10px] items-center pb-[10px]">
+                  <span className="w-[10px] h-[10px] rounded-full bg-secondry" />
+                  <h1 className="small-text uppercase font-medium font-NeueMontreal text-secondry">
+                    {item.title}
+                  </h1>
+                </div>
+                <ProjectCard item={item} key={item.id} />
+                <div className="flex flex-wrap items-center gap-[10px] mt-[20px]">
+                  {item.links.map((link) => (
+                    <Buttonno href={link.href} title={link.title} key={link.id} />
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

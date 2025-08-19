@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1754922452915,
+    "title": "coba 2",
+    "description": "amannnnnnnnnnnnn",
+    "category": "Logo",
+    "date": "2025-08-11",
+    "liveDemo": "",
+    "githubRepo": "",
+    "slug": "coba-2",
+    "technologies": "",
+    "customSections": [
+      {
+        "id": "1754922304778",
+        "name": "Section",
+        "sectionName": "nama proyek",
+        "description": "dwadawdadsdawdasddawadsadw",
+        "largeImages": [],
+        "smallImages": [],
+        "videos": []
+      },
+      {
+        "id": "1754922267520",
+        "name": "Gambar Large",
+        "sectionName": "",
+        "description": "",
+        "largeImages": [
+          "/uploads/1754922402889-bg 11.png"
+        ],
+        "smallImages": [],
+        "videos": []
+      }
+    ],
+    "image": "/uploads/1754922402493-luna jaya font.png",
+    "createdAt": "2025-08-11T14:27:32.915Z",
+    "updatedAt": "2025-08-12T09:18:53.135Z",
+    "subcategory": "amann, swesa",
+    "thumbnail": "/uploads/1754990332624-bg 11.png"
+  },
+  {
+    "id": 1755186549157,
+    "title": "dwa",
+    "description": "",
+    "category": "Logo",
+    "subcategory": "",
+    "date": "2025-08-14",
+    "liveDemo": "",
+    "githubRepo": "",
+    "slug": "dwa",
+    "technologies": "",
+    "image": "",
+    "thumbnail": "/uploads/1755186548875-bg_11.png",
+    "customSections": [
+      {
+        "id": "1755186546819",
+        "name": "Section",
+        "sectionName": "",
+        "description": "",
+        "largeImages": [],
+        "smallImages": [],
+        "videos": []
+      }
+    ],
+    "createdAt": "2025-08-14T15:49:09.157Z",
+    "updatedAt": "2025-08-14T15:49:09.157Z"
+  }
+]
