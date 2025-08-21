@@ -2,8 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { Plus, Edit2, Trash2, Save, X, Upload } from 'lucide-react';
 import Swal from 'sweetalert2';
-import { unifiedAboutApi } from '../../../services/api';
-import type { UnifiedSection } from '../../../services/api';
+import unifiedAboutAPI, { UnifiedSection } from '../../../services/unifiedAboutAPI';
 import AddSectionModal from './AddSectionModal';
 import ItemFormModal from './ItemFormModal';
 
@@ -13,12 +12,9 @@ interface SectionItem {
   title: string;
   subtitle?: string;
   content: string;
-  period?: string;
-  logo?: string;
-  institution?: string;
-  degree?: string;
-  company?: string;
-  position?: string;
+  image?: string;
+  imageCaption?: string;
+  sectionTitle?: string;
 }
 
 interface Section {
@@ -46,7 +42,8 @@ const defaultSections: Section[] = [
       {
         id: 'about-1',
         title: 'Tentang Saya',
-        content: 'Saya adalah seorang mahasiswa aktif di Universitas Negeri Surabaya. Dengan pengalaman dalam berbagai bidang desain, mulai dari desain grafis hingga desain UI/UX, saya selalu berusaha menghadirkan kreativitas yang tak hanya menarik secara visual, tetapi juga fungsional.\n\nSebagai seorang desainer, saya selalu berusaha terus berkembang dan mengeksplorasi tren desain terkini untuk memberikan hasil yang relevan dan up-to-date.'
+        content: 'Saya adalah seorang mahasiswa aktif di Universitas Negeri Surabaya. Dengan pengalaman dalam berbagai bidang desain, mulai dari desain grafis hingga desain UI/UX, saya selalu berusaha menghadirkan kreativitas yang tak hanya menarik secara visual, tetapi juga fungsional.\n\nSebagai seorang desainer, saya selalu berusaha terus berkembang dan mengeksplorasi tren desain terkini untuk memberikan hasil yang relevan dan up-to-date.',
+        sectionTitle: 'Tentang Saya',
       }
     ]
   },
@@ -97,13 +94,9 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
           title: item.title,
           subtitle: item.subtitle,
           content: item.content || '',
-          period: item.period,
-          institution: item.institution,
-          degree: item.degree,
-          company: item.company,
-          position: item.position,
-          logo: item.logo,
-          image: item.logo
+          image: item.image,
+          imageCaption: item.imageCaption,
+          sectionTitle: item.sectionTitle || section.title || '',
         }))
       );
     } catch (error) {
@@ -134,12 +127,9 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
             title: section.title,
             subtitle: section.subtitle,
             content: section.content,
-            period: section.period,
-            logo: section.logo ? (section.logo.startsWith('http') ? section.logo : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/storage/about-sections/${section.logo}`) : undefined,
-            institution: section.institution,
-            degree: section.degree,
-            company: section.company,
-            position: section.position || section.name,
+            image: section.image,
+            imageCaption: section.imageCaption,
+            sectionTitle: (section.sectionTitle || sectionTitle || '') + '',
           }))
         });
       }
@@ -149,7 +139,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
     const customSections = unifiedSections.filter(s => s.type === 'custom');
     if (customSections.length > 0) {
       const customGrouped = customSections.reduce((acc: any, section: any) => {
-        const sectionTitle = section.section_title || 'Section Lainnya';
+        const sectionTitle = section.sectionTitle || 'Section Lainnya';
         if (!acc[sectionTitle]) {
           acc[sectionTitle] = [];
         }
@@ -167,7 +157,9 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
             title: section.title,
             subtitle: section.subtitle,
             content: section.content,
-            logo: section.image || section.logo
+            image: section.image,
+            imageCaption: section.imageCaption,
+            sectionTitle: (section.sectionTitle || sectionTitle || '') + '',
           }))
         });
       });
@@ -185,7 +177,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
       
       try {
         // Always try to load from database first
-  const unifiedSections = await unifiedAboutApi.getAllSections();
+  const unifiedSections = await unifiedAboutAPI.getAllSections();
         
         if (unifiedSections && unifiedSections.length > 0) {
           console.log('✅ Found database data:', unifiedSections.length, 'sections');
@@ -220,7 +212,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
             }
           } else {
             // Use default sections if no data anywhere
-            console.log('� Using default sections');
+            console.log(' Using default sections');
             setSectionsData(defaultSections);
             if (onUpdate) {
               onUpdate(convertSectionsToUnified(defaultSections));
@@ -314,7 +306,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
       console.log('✅ File validation passed, uploading...');
 
       // Upload logo using unifiedAboutAPI
-  const uploadedLogoUrl = await unifiedAboutApi.uploadLogo(file);
+  const uploadedLogoUrl = await unifiedAboutAPI.uploadLogo(file);
       console.log('✅ Logo uploaded successfully:', uploadedLogoUrl);
 
       // Always update the item with new logo URL immediately
@@ -325,7 +317,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
           prev.map(section => ({
             ...section,
             items: section.items.map(item => 
-              item.id === itemId ? { ...item, logo: uploadedLogoUrl } : item
+              item.id === itemId ? { ...item, image: uploadedLogoUrl } : item
             )
           }))
         );
@@ -336,7 +328,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
         if (sectionData) {
           const item = sectionData.items.find(i => i.id === itemId);
           if (item) {
-            const updatedItem = { ...item, logo: uploadedLogoUrl };
+            const updatedItem = { ...item, image: uploadedLogoUrl };
             await handleSaveItem(sectionData.type, updatedItem);
             console.log('✅ Item updated with new logo and saved to database');
           }
@@ -387,30 +379,17 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
     try {
       console.log('💾 Saving item to database:', { sectionType, item });
 
-      const sectionData: Partial<import('../../../services/unifiedAboutAPI').UnifiedSection> = {
-        type: sectionType as 'about' | 'education' | 'organization' | 'workExperience' | 'custom',
+      const sectionData: Partial<UnifiedSection> = {
+        type: sectionType as any,
         title: item.title,
+        subtitle: item.subtitle,
         content: item.content,
-        sort_order: 0
+        image: item.image,
       };
-
-      // Add optional fields only if they have values
-      if (item.subtitle) sectionData.subtitle = item.subtitle;
-      if (item.period) sectionData.period = item.period;
-      if (item.institution) sectionData.institution = item.institution;
-      if (item.degree) sectionData.degree = item.degree;
-      if (item.company) sectionData.company = item.company;
-      if (item.position) sectionData.position = item.position;
-      if (item.logo) sectionData.logo = item.logo;
-      if (item.logo) sectionData.image = item.logo;
-      if (sectionType === 'custom') {
-        const sectionTitle = sectionsData.find(s => s.items.some(i => i.id === item.id))?.title;
-        if (sectionTitle) sectionData.section_title = sectionTitle;
-      }
 
       if (item.id.startsWith('new-')) {
         // Create new item
-  const newSection = await unifiedAboutApi.createSection(sectionData);
+  const newSection = await unifiedAboutAPI.createSection(sectionData);
         console.log('✅ Item created in database:', newSection);
 
         // Update local state with real ID
@@ -436,7 +415,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
         });
       } else {
         // Update existing item
-  const updatedSection = await unifiedAboutApi.updateSection(item.id, sectionData);
+  const updatedSection = await unifiedAboutAPI.updateSection(item.id, sectionData);
         console.log('✅ Item updated in database:', updatedSection);
 
         // Force localStorage update after database update
@@ -482,7 +461,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
 
         // Only delete from database if it's not a new item
         if (!itemId.startsWith('new-')) {
-          await unifiedAboutApi.deleteSection(itemId);
+          await unifiedAboutAPI.deleteSection(itemId);
           console.log('✅ Item deleted from database');
         }
 
@@ -624,12 +603,12 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
     // If it's a custom section, update all items in that section in database
     const section = sectionsData.find(s => s.id === sectionId);
     if (section && section.type === 'custom') {
-      // Update section_title for all items in this custom section
+      // Update sectionTitle for all items in this custom section
       for (const item of section.items) {
         if (!item.id.startsWith('new-')) {
           try {
-            await unifiedAboutApi.updateSection(item.id, {
-              section_title: newTitle
+            await unifiedAboutAPI.updateSection(item.id, {
+              sectionTitle: newTitle
             });
           } catch (error) {
             console.error('Error updating section title in database:', error);
@@ -812,10 +791,10 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
                         <div className="flex justify-between items-start gap-4">
                           <div className="flex-1">
                             <div className="flex items-start gap-4">
-                              {item.logo && (
+                              {item.image && (
                                 <div className="flex-shrink-0">
                                   <Image 
-                                    src={item.logo} 
+                                    src={item.image} 
                                     alt={item.title}
                                     width={48}
                                     height={48}
@@ -827,16 +806,6 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
                                 <h4 className="font-semibold text-gray-800 mb-1">{item.title}</h4>
                                 {item.subtitle && (
                                   <p className="text-gray-600 text-sm mb-2">{item.subtitle}</p>
-                                )}
-                                {item.period && (
-                                  <p className="text-indigo-600 text-sm font-medium mb-2">{item.period}</p>
-                                )}
-                                {(item.institution || item.company) && (
-                                  <p className="text-gray-500 text-sm mb-2">
-                                    {item.institution || item.company}
-                                    {item.degree && ` • ${item.degree}`}
-                                    {item.position && ` • ${item.position}`}
-                                  </p>
                                 )}
                                 <p className="text-gray-700 text-sm leading-relaxed">
                                   {item.content.length > 150 

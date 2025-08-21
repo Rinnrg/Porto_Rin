@@ -1,5 +1,5 @@
-import { unifiedAboutApi } from '../../../services/api';
 "use client";
+import unifiedAboutAPI from '../../../services/unifiedAboutAPI';
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { Save, X, Upload, User, Building, GraduationCap, Briefcase, FileText, Calendar, MapPin, Award, CheckCircle, AlertCircle } from 'lucide-react';
@@ -313,7 +313,6 @@ const ItemFormModal: React.FC<ItemFormModalProps> = ({
         icon: 'error',
         confirmButtonColor: '#ef4444',
         background: '#fefefe',
-        zIndex: 999999, // Pastikan SweetAlert di atas modal
         customClass: {
           popup: 'rounded-xl shadow-2xl !z-[999999]',
           title: 'text-lg font-semibold'
@@ -333,7 +332,6 @@ const ItemFormModal: React.FC<ItemFormModalProps> = ({
         icon: 'error',
         confirmButtonColor: '#ef4444',
         background: '#fefefe',
-        zIndex: 999999, // Pastikan SweetAlert di atas modal
         customClass: {
           popup: 'rounded-xl shadow-2xl !z-[999999]',
           title: 'text-lg font-semibold'
@@ -374,27 +372,22 @@ const ItemFormModal: React.FC<ItemFormModalProps> = ({
           timer: 2000,
           showConfirmButton: false,
           background: '#fefefe',
-          zIndex: 999999, // Pastikan SweetAlert di atas modal
           customClass: {
             popup: 'rounded-xl shadow-2xl !z-[999999]',
             title: 'text-lg font-semibold'
           }
         });
       } else {
-        console.log('⚠️ No onLogoUpload function, using fallback...');
-        
-        // Fallback - create object URL for preview
-        const tempUrl = URL.createObjectURL(file);
-        setFormData(prev => ({ ...prev, logo: tempUrl }));
-        
+        console.log('⚠️ No onLogoUpload function provided. Uploading directly via API...');
+        const uploadedUrl = await unifiedAboutAPI.uploadLogo(file);
+        setFormData(prev => ({ ...prev, logo: uploadedUrl }));
         await Swal.fire({
-          title: 'Preview Mode',
-          text: 'Gambar dipilih untuk preview (akan diupload saat menyimpan)',
-          icon: 'info',
+          title: 'Upload Berhasil!',
+          text: 'Gambar berhasil diupload dan siap disimpan ke database',
+          icon: 'success',
           timer: 2000,
           showConfirmButton: false,
           background: '#fefefe',
-          zIndex: 999999, // Pastikan SweetAlert di atas modal
           customClass: {
             popup: 'rounded-xl shadow-2xl !z-[999999]',
             title: 'text-lg font-semibold'
@@ -409,7 +402,6 @@ const ItemFormModal: React.FC<ItemFormModalProps> = ({
         icon: 'error',
         confirmButtonColor: '#ef4444',
         background: '#fefefe',
-        zIndex: 999999, // Pastikan SweetAlert di atas modal
         customClass: {
           popup: 'rounded-xl shadow-2xl !z-[999999]',
           title: 'text-lg font-semibold'
@@ -1073,7 +1065,14 @@ const ItemFormModal: React.FC<ItemFormModalProps> = ({
             </div>
 
             {/* Content - Scrollable */}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                const target = e.target as HTMLElement;
+                if (!target || target.tagName !== 'TEXTAREA') {
+                  e.preventDefault();
+                }
+              }
+            }}>
               <div className="scrollable-area">
                 <div 
                   className="h-full overflow-y-auto bg-white scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 modal-content modal-scroll-container"
