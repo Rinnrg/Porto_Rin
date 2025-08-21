@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Basic configuration without locomotive-scroll
-};
+const nextConfig = {};
 
 export default nextConfig;

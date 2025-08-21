@@ -26,8 +26,7 @@
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts",
-		"components/Curve/Curve.jsx",
-		"types/**/*.d.ts"
+		"components/Curve/Curve.jsx"
 	],
 	"exclude": ["node_modules"]
 }

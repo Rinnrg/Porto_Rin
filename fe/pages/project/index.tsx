@@ -10,9 +10,8 @@ import {
 } from "@/container";
 import { useEffect } from "react";
 import { Curve, Ready } from "@/components";
-import { TransitionProvider } from "@/context/TransitionContext";
 
-function WorkContent() {
+export default function Work() {
 	useEffect(() => {
 		(async () => {
 			const LocomotiveScroll = (await import("locomotive-scroll")).default;
@@ -32,13 +31,5 @@ function WorkContent() {
 				<Ready />
 			</Curve>
 		</>
-	);
-}
-
-export default function Work() {
-	return (
-		<TransitionProvider>
-			<WorkContent />
-		</TransitionProvider>
 	);
 }

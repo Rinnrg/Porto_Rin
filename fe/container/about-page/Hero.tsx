@@ -6,7 +6,7 @@ import { Eyes, PDFViewer } from "@/components";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useState, useEffect } from "react";
-import { api } from "@/services/api";
+// import { api } from "@/services/api"; // Removed - services folder deleted
 
 interface HeroData {
 	heroDescription: string;
@@ -38,16 +38,25 @@ export default function Hero() {
 		setLoadingCV(true);
 		
 		try {
-			const response = await api.getCurrentCV();
-			if (response.success && response.data) {
+			// Direct API call instead of using api service
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/cv/current`, {
+				method: 'GET',
+				headers: {
+					'Accept': 'application/json',
+				},
+			});
+
+			const data = await response.json();
+			
+			if (response.ok && data.success && data.data) {
 				setCvData({
-					id: response.data.id,
-					fileName: response.data.original_name || response.data.file_name,
-					originalName: response.data.original_name,
-					fileUrl: response.data.file_url,
-					description: response.data.description,
-					uploadDate: response.data.created_at,
-					fileSize: response.data.file_size
+					id: data.data.id,
+					fileName: data.data.original_name || data.data.file_name,
+					originalName: data.data.original_name,
+					fileUrl: data.data.file_url,
+					description: data.data.description,
+					uploadDate: data.data.created_at,
+					fileSize: data.data.file_size
 				});
 			} else {
 				setCvData(null);

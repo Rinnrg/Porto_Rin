@@ -4,7 +4,7 @@ import AdminLayout from "@/components/AdminLayout";
 import { Upload, Download, Eye, Edit3, Save, X } from "lucide-react";
 import Swal from 'sweetalert2';
 import { useAuthContext } from "@/context/AuthContext";
-import { api } from "@/services/api";
+// import { api } from "@/services/api"; // Removed - services folder deleted
 
 interface CVData {
   id?: number;

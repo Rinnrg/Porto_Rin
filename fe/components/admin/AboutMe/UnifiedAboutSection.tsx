@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { Plus, Edit2, Trash2, Save, X, Upload } from 'lucide-react';
 import Swal from 'sweetalert2';
-import unifiedAboutAPI, { UnifiedSection } from '../../../services/unifiedAboutAPI';
+import { unifiedAboutApi } from '../../../services/api';
+import type { UnifiedSection } from '../../../services/api';
 import AddSectionModal from './AddSectionModal';
 import ItemFormModal from './ItemFormModal';
 
@@ -134,7 +135,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
             subtitle: section.subtitle,
             content: section.content,
             period: section.period,
-            logo: section.logo,
+            logo: section.logo ? (section.logo.startsWith('http') ? section.logo : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/storage/about-sections/${section.logo}`) : undefined,
             institution: section.institution,
             degree: section.degree,
             company: section.company,
@@ -184,7 +185,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
       
       try {
         // Always try to load from database first
-        const unifiedSections = await unifiedAboutAPI.getAllSections();
+  const unifiedSections = await unifiedAboutApi.getAllSections();
         
         if (unifiedSections && unifiedSections.length > 0) {
           console.log('✅ Found database data:', unifiedSections.length, 'sections');
@@ -313,7 +314,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
       console.log('✅ File validation passed, uploading...');
 
       // Upload logo using unifiedAboutAPI
-      const uploadedLogoUrl = await unifiedAboutAPI.uploadLogo(file);
+  const uploadedLogoUrl = await unifiedAboutApi.uploadLogo(file);
       console.log('✅ Logo uploaded successfully:', uploadedLogoUrl);
 
       // Always update the item with new logo URL immediately
@@ -409,7 +410,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
 
       if (item.id.startsWith('new-')) {
         // Create new item
-        const newSection = await unifiedAboutAPI.createSection(sectionData);
+  const newSection = await unifiedAboutApi.createSection(sectionData);
         console.log('✅ Item created in database:', newSection);
 
         // Update local state with real ID
@@ -435,7 +436,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
         });
       } else {
         // Update existing item
-        const updatedSection = await unifiedAboutAPI.updateSection(item.id, sectionData);
+  const updatedSection = await unifiedAboutApi.updateSection(item.id, sectionData);
         console.log('✅ Item updated in database:', updatedSection);
 
         // Force localStorage update after database update
@@ -481,7 +482,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
 
         // Only delete from database if it's not a new item
         if (!itemId.startsWith('new-')) {
-          await unifiedAboutAPI.deleteSection(itemId);
+          await unifiedAboutApi.deleteSection(itemId);
           console.log('✅ Item deleted from database');
         }
 
@@ -627,7 +628,7 @@ const UnifiedAboutSection: React.FC<UnifiedAboutSectionProps> = ({
       for (const item of section.items) {
         if (!item.id.startsWith('new-')) {
           try {
-            await unifiedAboutAPI.updateSection(item.id, {
+            await unifiedAboutApi.updateSection(item.id, {
               section_title: newTitle
             });
           } catch (error) {

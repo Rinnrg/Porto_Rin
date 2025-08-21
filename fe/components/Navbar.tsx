@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import SafeImage from "./SafeImage";
 import { logo } from "@/public";
 import { useState } from "react";
 import { navVariants } from "@/motion";
@@ -30,7 +30,7 @@ export default function Navbar() {
 				animate={hidden ? "hidden" : "visible"}>
 				<div className="w-[10%] flex items-center justify-start">
 					<Link href={"/"}>
-						<Image
+						<SafeImage
 							src="/Logoblck.png"
 							alt="logoku"
 							width={25}

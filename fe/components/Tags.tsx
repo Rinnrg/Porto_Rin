@@ -1,18 +1,12 @@
 import Link from "next/link";
 import { Rounded } from "@/components";
 
-interface TagItem {
-  id: string | number;
-  href: string;
-  [key: string]: any;
-}
-
 export default function Tags({
 	item,
 	bgcolor,
 	className,
 }: {
-	item: TagItem;
+	item: any;
 	bgcolor: string;
 	className: string;
 }) {

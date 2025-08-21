@@ -2,7 +2,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { api } from "@/services/api";
+// import { api } from "@/services/api"; // Removed - services folder deleted
 import { Eye, EyeOff, User, Lock } from "lucide-react";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";

@@ -1,8 +1,9 @@
 // Test page untuk koneksi API Laravel Backend
 // Akses di: http://localhost:3000/test-api
+// NOTE: API service has been removed
 
 import { useState } from 'react';
-import { api } from '../services/api';
+// import { api } from '../services/api'; // Commented out - services folder removed
 
 export default function TestAPI() {
   const [result, setResult] = useState('');
@@ -13,8 +14,9 @@ export default function TestAPI() {
     setResult('Testing login...');
     
     try {
-      const response = await api.login('admin', '123456');
-      setResult(JSON.stringify(response, null, 2));
+      // const response = await api.login('admin', '123456');
+      // setResult(JSON.stringify(response, null, 2));
+      setResult('API service has been removed - this test is no longer functional');
     } catch (error) {
       setResult(`Error: ${error.message}`);
     } finally {
@@ -27,8 +29,9 @@ export default function TestAPI() {
     setResult('Testing /api/me...');
     
     try {
-      const response = await api.me();
-      setResult(JSON.stringify(response, null, 2));
+      // const response = await api.me();
+      // setResult(JSON.stringify(response, null, 2));
+      setResult('API service has been removed - this test is no longer functional');
     } catch (error) {
       setResult(`Error: ${error.message}`);
     } finally {
@@ -41,8 +44,9 @@ export default function TestAPI() {
     setResult('Testing logout...');
     
     try {
-      await api.logout();
-      setResult('Logout successful');
+      // await api.logout();
+      // setResult('Logout successful');
+      setResult('API service has been removed - this test is no longer functional');
     } catch (error) {
       setResult(`Error: ${error.message}`);
     } finally {
@@ -95,8 +99,8 @@ export default function TestAPI() {
           <div className="space-y-2 text-sm">
             <p><strong>Frontend:</strong> http://localhost:3000</p>
             <p><strong>Backend:</strong> {process.env.NEXT_PUBLIC_API_BASE_URL}</p>
-            <p><strong>Auth Status:</strong> {api.isAuthenticated() ? 'Authenticated' : 'Not authenticated'}</p>
-            <p><strong>Stored User:</strong> {JSON.stringify(api.getStoredUser())}</p>
+            <p><strong>Auth Status:</strong> {/* api.isAuthenticated() ? 'Authenticated' : 'Not authenticated' */ 'API service removed'}</p>
+            <p><strong>Stored User:</strong> {/* JSON.stringify(api.getStoredUser()) */ 'API service removed'}</p>
           </div>
         </div>
       </div>

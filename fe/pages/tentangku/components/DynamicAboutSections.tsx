@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Ratings } from "@/components";
 import { Team, Skillku, Principles } from "@/container";
-import unifiedAboutAPI from "@/services/unifiedAboutAPI";
 
 interface Education {
   id: string;
@@ -107,6 +106,8 @@ export default function DynamicAboutSections() {
         console.log('Loading data for Tentang Saya page...');
 
         // First, try to load from unified about API (database)
+        // Commented out since services folder was removed
+        /*
         try {
           const unifiedSections = await unifiedAboutAPI.getAllSections();
           console.log('Unified sections loaded:', unifiedSections);
@@ -122,9 +123,10 @@ export default function DynamicAboutSections() {
         } catch (error) {
           console.error('Error loading from unified API, falling back to about API:', error);
         }
+        */
 
         // Fallback to existing about API
-        const response = await fetch('/api/about');
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/about`);
         let apiData: any = {};
         if (response.ok) {
           apiData = await response.json();

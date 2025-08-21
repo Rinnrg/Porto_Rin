@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "@/components/AdminLayout";
-import { api } from "@/services/api";
+// import { api } from "@/services/api"; // Removed - services folder deleted
 import Swal from 'sweetalert2';
 import { 
   FolderOpen, 
@@ -48,9 +48,17 @@ export default function AdminDashboard() {
   const checkBackendConnection = async () => {
     try {
       setBackendStatus('checking');
-      const userData = await api.me();
-      setUser(userData);
-      setBackendStatus('connected');
+      // const userData = await api.me(); // API service removed
+      // setUser(userData);
+      
+      // Check if user is stored in localStorage
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+        setBackendStatus('connected');
+      } else {
+        setBackendStatus('disconnected');
+      }
     } catch (error) {
       console.error('Backend connection failed:', error);
       setBackendStatus('disconnected');
@@ -104,7 +112,11 @@ export default function AdminDashboard() {
         });
 
         try {
-          await api.logout();
+          // await api.logout(); // API service removed
+          
+          // Clear localStorage instead
+          localStorage.removeItem('auth_token');
+          localStorage.removeItem('user');
           
           await Swal.fire({
             title: 'Logout Berhasil!',

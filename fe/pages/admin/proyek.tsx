@@ -66,7 +66,7 @@ export default function AdminProjects() {
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch('/api/projects');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/projects`);
       if (!response.ok) {
         throw new Error('Failed to fetch projects');
       }
@@ -129,7 +129,7 @@ export default function AdminProjects() {
 
     if (result.isConfirmed) {
       try {
-        await fetch(`/api/projects/${id}`, { method: 'DELETE' });
+  await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/projects/${id}`, { method: 'DELETE' });
         await Swal.fire({
           title: 'Terhapus!',
           text: 'Proyek berhasil dihapus.',

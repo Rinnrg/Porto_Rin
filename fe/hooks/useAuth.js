@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { api } from '../services/api';
+// import { api } from '../services/api'; // Removed - services folder deleted
 
 export const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -23,7 +23,8 @@ export const useAuth = () => {
       console.log('🔍 Checking auth status...');
       
       // Cek apakah ada token di localStorage
-      const hasToken = api.isAuthenticated();
+      const token = localStorage.getItem('auth_token');
+      const hasToken = !!token;
       console.log('📝 Has token in localStorage:', hasToken);
       
       if (!hasToken) {
@@ -36,16 +37,30 @@ export const useAuth = () => {
       // Langsung verify token dengan backend tanpa set authenticated dulu
       try {
         console.log('🔄 Verifying token with backend...');
-        const userData = await api.me();
-        setUser(userData);
-        setIsAuthenticated(true);
-        console.log('✅ Token verified successfully');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/me`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData.user || userData);
+          setIsAuthenticated(true);
+          console.log('✅ Token verified successfully');
+        } else {
+          throw new Error('Token verification failed');
+        }
       } catch (error) {
         // Token invalid atau expired
         console.error('❌ Auth verification failed:', error);
         setUser(null);
         setIsAuthenticated(false);
-        // Token sudah dihapus oleh api.me() jika error 401
+        // Clear invalid token
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('user');
       }
     } catch (error) {
       console.error('❌ Auth check error:', error);
@@ -62,15 +77,28 @@ export const useAuth = () => {
     try {
       setLoading(true);
       
-      const result = await api.login(username, password);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const result = await response.json();
       
-      if (result.success) {
+      if (response.ok && result.success) {
+        // Store token and user data
+        localStorage.setItem('auth_token', result.token);
+        localStorage.setItem('user', JSON.stringify(result.user));
+        
         setUser(result.user);
         setIsAuthenticated(true);
         return { success: true, user: result.user };
       }
       
-      throw new Error('Login failed');
+      throw new Error(result.message || 'Login failed');
     } catch (error) {
       console.error('Login error:', error);
       setUser(null);
@@ -85,7 +113,27 @@ export const useAuth = () => {
   const logout = useCallback(async () => {
     try {
       setLoading(true);
-      await api.logout();
+      
+      // Try to logout from backend if token exists
+      const token = localStorage.getItem('auth_token');
+      if (token) {
+        try {
+          await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/logout`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Accept': 'application/json',
+            },
+          });
+        } catch (error) {
+          console.error('Backend logout error:', error);
+          // Continue with local logout even if backend fails
+        }
+      }
+      
+      // Clear local storage
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('user');
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
@@ -103,8 +151,26 @@ export const useAuth = () => {
     if (!isAuthenticated) return;
     
     try {
-      const userData = await api.me();
-      setUser(userData);
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+        logout();
+        return;
+      }
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/me`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData.user || userData);
+      } else {
+        throw new Error('Failed to refresh user data');
+      }
     } catch (error) {
       console.error('Refresh user error:', error);
       // Jika refresh gagal, logout user
@@ -124,8 +190,8 @@ export const useAuth = () => {
     checkAuthStatus,
     refreshUser,
     
-    // Utilities
-    token: api.getToken(),
+  // Utilities
+  token: typeof window !== "undefined" ? localStorage.getItem('auth_token') : null,
   };
 };
 

@@ -7,7 +7,7 @@ export { default as Kontaktransisi } from './kontaktransisi.png';
 export { default as kualitas } from './quality.svg';
 export { default as awwwards } from './awwwards.svg';
 export { default as aboutImg } from './aboutImg.webp';
-export { default as fotorino } from './fotorino.png';
+export { default as fotorino } from './fotorino.jpg';
 export { default as videoImg } from './videoImg.jpeg';
 
 //proyek

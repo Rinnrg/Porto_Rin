@@ -5,12 +5,10 @@ import { TextMask } from "@/animation";
 import { ArrowUpRight } from "lucide-react";
 import { Eyes, RoundButton, Rounded } from "@/components";
 import { useScroll, useTransform, motion } from "framer-motion";
-import { useTransition } from "@/context/TransitionContext";
 
 export default function Ready() {
 	const container = useRef(null);
 	const phrase = ["desain", "merubah", "isi hatimu"];
-	const { isTransitioning } = useTransition();
 
 	const { scrollYProgress } = useScroll({
 		target: container,
@@ -20,11 +18,7 @@ export default function Ready() {
 
 	return (
 		<section
-			className={`w-full relative z-30 min-h-screen sm:h-screen xm:h-screen bg-about padding-y rounded-t-[20px] mt-[-20px] transition-all duration-[1200ms] ease-[cubic-bezier(0.165,0.84,0.44,1)] ${
-				isTransitioning 
-					? 'scale-[0.3] opacity-0 rounded-[200px] blur-[20px] rotate-[5deg] saturate-[3] brightness-[0.3] contrast-[2]' 
-					: 'scale-100 opacity-100 blur-0 rotate-0 saturate-100 brightness-100 contrast-100'
-			}`}
+			className="w-full relative z-30 min-h-screen sm:h-screen xm:h-screen bg-about padding-y rounded-t-[20px] mt-[-20px]"
 			ref={container}>
 			<div className="w-full h-full flex justify-center gap-[50px] items-center flex-col">
 				<div className="flex flex-col gap-[10px]">
@@ -44,8 +38,12 @@ export default function Ready() {
 					</div>
 					<p className="text-[20px] font-NeueMontreal text-secondry">Atau</p>
 					<div className="flex items-center justify-between bg-transparent cursor-pointer rounded-full group border border-[#212121]">
-						<Link href="/uploads/1755069758590-E-KTM_Rino_Raihan_Gumilang.pdf" target="_blank" rel="noopener noreferrer">
-							<Rounded className="w-[180px] h-[60px] bg-zinc-100 text-black relative flex items-center group rounded-full justify-between">
+						<Link
+							className="xl:text-[18px] xl:leading-[28px] text-[14px] leading-[24px] uppercase font-normal font-NeueMontreal"
+							href="https://drive.google.com/file/d/1pEdZHY3gawGwUR2AfNYvQMXEGNBmHwNQ/view?usp=sharing">
+							<Rounded
+								className="py-[6px]"
+								backgroundColor="#212121">
 								<p className="z-10 px-[10px] ml-[15px] py-[6px] group-hover:text-white text-black">
 									Lihat CV ku
 								</p>

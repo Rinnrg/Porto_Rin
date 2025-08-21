@@ -24,7 +24,7 @@ export const navbarItems = [
    },
    {
       id: 5,
-      title: "",
+      title: "Services",
       href: "/services",
    },
 ];
@@ -109,12 +109,12 @@ export const footernavbarItems = [
    },
    {
       id: 5,
-      title: "",
+      title: "Insights",
       href: "/insights",
    },
    {
       id: 6,
-      title: "",
+      title: "Services",
       href: "/services",
    },
 ];
@@ -131,12 +131,12 @@ export const skillsaya = [
          {
             id: 1,
             title: "Corel Draw",
-            href: "?",
+            href: "/services",
          },
          {
             id: 2,
             title: "Adobe Ilustrator",
-            href: "?",
+            href: "/services",
          },
          {
             id: 3,
@@ -238,12 +238,12 @@ export const projectItem = [
          {
             id: 2,
             title: "Brand Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Brand Identity",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -261,7 +261,7 @@ export const projectItem = [
          {
             id: 2,
             title: "Graphic Design",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -280,7 +280,7 @@ export const projectItem = [
          {
             id: 2,
             title: "Graphic Design",
-            href: "services",
+            href: "/services",
          },
          
       ]
@@ -300,12 +300,12 @@ export const projectItem = [
          {
             id: 2,
             title: "Brand Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Brand Identity",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -376,7 +376,7 @@ export const serviceClientsItem = [
          {
             id: 2,
             title: "sales deck",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -397,32 +397,32 @@ export const serviceClientsItem = [
          {
             id: 2,
             title: "big news deck",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "branded template",
-            href: "services",
+            href: "/services",
          },
          {
             id: 4,
             title: "investor deck",
-            href: "services",
+            href: "/services",
          },
          {
             id: 5,
             title: "product presentation",
-            href: "services",
+            href: "/services",
          },
          {
             id: 6,
             title: "sales deck",
-            href: "services",
+            href: "/services",
          },
          {
             id: 7,
             title: "startup pitch",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -443,22 +443,22 @@ export const serviceClientsItem = [
          {
             id: 2,
             title: "onboarding presentation",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "policy deck and playbook",
-            href: "services",
+            href: "/services",
          },
          {
             id: 4,
             title: "redesign",
-            href: "services",
+            href: "/services",
          },
          {
             id: 5,
             title: "sales deck",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -479,7 +479,7 @@ export const serviceClientsItem = [
          {
             id: 2,
             title: "illustration",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -500,7 +500,7 @@ export const serviceClientsItem = [
          {
             id: 2,
             title: "startup pitch",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -537,22 +537,22 @@ export const serviceClientsItem = [
          {
             id: 2,
             title: "investor deck",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "product presentation",
-            href: "services",
+            href: "/services",
          },
          {
             id: 4,
             title: "review",
-            href: "services",
+            href: "/services",
          },
          {
             id: 2,
             title: "sales deck",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -573,7 +573,7 @@ export const serviceClientsItem = [
          {
             id: 2,
             title: "startup pitch",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -790,12 +790,12 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Brand Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Brand Identity",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -814,12 +814,12 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Brand Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Brand Identity",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -838,12 +838,12 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Brand Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Brand Identity",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -862,12 +862,12 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Brand Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Brand Identity",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -886,12 +886,12 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Graphic Design",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -910,12 +910,12 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Brand Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Graphic Design",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -934,7 +934,7 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Graphic Design",
-            href: "services",
+            href: "/services",
          },
          
       ]
@@ -954,7 +954,7 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Graphic Design",
-            href: "services",
+            href: "/services",
          },
          
       ]
@@ -974,7 +974,7 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Graphic Design",
-            href: "services",
+            href: "/services",
          },
          
       ]
@@ -994,12 +994,12 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Brand Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Brand Identity",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -1018,12 +1018,12 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Brand Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Brand Identity",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -1042,7 +1042,7 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Graphic Design",
-            href: "services",
+            href: "/services",
          },
          
       ]
@@ -1062,12 +1062,12 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Brand Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Brand Identity",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -1086,12 +1086,12 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Brand Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Brand Identity",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -1110,12 +1110,12 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Brand Design",
-            href: "services",
+            href: "/services",
          },
          {
             id: 3,
             title: "Brand Identity",
-            href: "services",
+            href: "/services",
          },
       ]
    },
@@ -1134,7 +1134,7 @@ export const presentationProjectItem = [
          {
             id: 2,
             title: "Graphic Design",
-            href: "services",
+            href: "/services",
          },
          
       ]
@@ -1189,11 +1189,13 @@ export const latestItemss = [
       links: [
          {
             id: 1,
-            title: "public speaking"
+            title: "public speaking",
+            href: "/"
          },
          {
-            id: 1,
-            title: "storytelling"
+            id: 2,
+            title: "storytelling",
+            href: "/"
          },
       ],
       title: "Presenting to an International Audience: <br/> Tips and Lessons Learned.",
@@ -1207,7 +1209,8 @@ export const latestItemss = [
       links: [
          {
             id: 1,
-            title: "presentation template"
+            title: "presentation template",
+            href: "/"
          },
       ],
       title: "Developing compony-wide presentation template for premium blend.",
